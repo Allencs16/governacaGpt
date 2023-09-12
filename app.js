@@ -3,10 +3,7 @@ const app = express();
 const openai = require('openai');
 app.use(express.json()) 
 
-// Set up OpenAI API key
-//const apiKey = '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';
-const apiKey = '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';
-const openaiClient = new openai({ apiKey: apiKey });
+
 
 
 // Define a route to interact with GPT-3
