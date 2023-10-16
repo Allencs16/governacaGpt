@@ -12,20 +12,21 @@ app.get('/gpt3', async (req, res) => {
     var requestBody = req.body;
     const response = await openaiClient.completions.create({
       model: 'text-davinci-002',
-      prompt: 'Responda somente com sim ou não se isso tem a ver com o contexto de governanca de TI ou corporativa: ' + requestBody.text,
-      max_tokens: 10,
+      prompt: 'Responda com base nos seus conhecimentos em Governança corporativa: ' + requestBody.text,
+      max_tokens: 400,
     });
+    res.json({ response: response.choices[0].text });
 
-    if(response.choices[0].text.replace('\n\n', '').toLowerCase() == 'sim'){
-      const response = await openaiClient.completions.create({
-        model: 'text-davinci-002',
-        prompt: requestBody.text,
-        max_tokens: 200,
-      });
-      res.json({ response: response.choices[0].text });
-    } else {
-      res.json({ response: 'Sua Pergunta não esta alinhada com gorvenança' })
-    }
+    // if(response.choices[0].text.replace('\n\n', '').toLowerCase() == 'sim'){
+    //   const response = await openaiClient.completions.create({
+    //     model: 'text-davinci-002',
+    //     prompt: requestBody.text,
+    //     max_tokens: 200,
+    //   });
+    //   res.json({ response: response.choices[0].text });
+    // } else {
+    //   res.json({ response: 'Sua Pergunta não esta alinhada com governança' })
+    // }
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'An error occurred' });
