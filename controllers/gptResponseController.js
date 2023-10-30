@@ -28,6 +28,16 @@ class GptResponseController {
       res.status(500).json({ error: 'An error occurred' });
     }
   }
+
+  static async getAllQuestions(req, res){
+    try {
+      const questions = await gptResponseModel.find().exec();
+      res.json({response: questions});
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ error: 'An error occurred' });
+    }
+  }
 }
 
 export default GptResponseController;
